@@ -46,6 +46,11 @@ export const login = async (req, res) => {
       });
     }
     let token = EncodeToken(user.phone, user._id);
+    let cookieOption = {
+      expires: new Date(Date.now() + 24 * 6060 * 1000),
+      httpOnly: false,
+    };
+    res.cookie("token", token, cookieOption);
     res.json({
       token,
       message: "Login Successfully.",
